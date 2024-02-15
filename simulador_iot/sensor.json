@@ -1,0 +1,41 @@
+{
+    "gases_detectaveis": [
+      {
+        "nome_gas": "Monóxido de Carbono (CO)",
+        "faixa_deteccao": "0-1000 ppm",
+        "precisao": "±5 ppm",
+        "tempo_resposta": "T90 < 30 segundos"
+      },
+      {
+        "nome_gas": "Dióxido de Nitrogênio (NO2)",
+        "faixa_deteccao": "0-50 ppm",
+        "precisao": "±2 ppm",
+        "tempo_resposta": "T90 < 60 segundos"
+      },
+      {
+        "nome_gas": "Amônia (NH3)",
+        "faixa_deteccao": "0-100 ppm",
+        "precisao": "±3 ppm",
+        "tempo_resposta": "T90 < 50 segundos"
+      },
+      {
+        "nome_gas": "Ozônio (O3)",
+        "faixa_deteccao": "0-10 ppm",
+        "precisao": "±0.02 ppm",
+        "tempo_resposta": "T90 < 45 segundos"
+      },
+      {
+        "nome_gas": "Sulfeto de Hidrogênio (H2S)",
+        "faixa_deteccao": "0-100 ppm",
+        "precisao": "±5 ppm",
+        "tempo_resposta": "T90 < 30 segundos"
+      },
+      {
+        "nome_gas": "Dióxido de Enxofre (SO2)",
+        "faixa_deteccao": "0-20 ppm",
+        "precisao": "±0.5 ppm",
+        "tempo_resposta": "T90 < 30 segundos"
+      }
+    ]
+  }
+  

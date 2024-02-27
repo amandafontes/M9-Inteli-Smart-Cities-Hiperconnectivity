@@ -1,0 +1,50 @@
+package main
+
+import (
+	"encoding/json"
+	"fmt"
+	"math/rand"
+	"os"
+	"time"
+
+	mqtt "github.com/eclipse/paho.mqtt.golang"
+)
+
+func main() {
+	// Configuração do cliente MQTT
+	opts := mqtt.NewClientOptions().AddBroker("tcp://localhost:1891").SetClientID("")
+	client := mqtt.NewClient(opts)
+
+	// Conectar ao broker
+	if token := client.Connect(); token.Wait() && token.Error() != nil {
+		panic(token.Error())
+	}
+
+	// Leitura do arquivo JSON
+	file, err := os.ReadFile("sensor.json")
+	if err != nil {
+		fmt.Println("Erro ao ler o arquivo:", err)
+		os.Exit(1)
+	}
+
+	var data map[string][]map[string]interface{}
+	err = json.Unmarshal(file, &data)
+	if err != nil {
+		fmt.Println("Erro ao fazer o parse do JSON:", err)
+		os.Exit(1)
+	}
+
+	gasesDetectaveis := data["gases_detectaveis"]
+	rand.Seed(time.Now().UnixNano())
+
+	// Loop para publicar mensagens continuamente de maneira aleatória
+	for {
+		index := rand.Intn(len(gasesDetectaveis))
+		message, _ := json.Marshal(gasesDetectaveis[index])
+		token := client.Publish("sensor/data", 0, false, message)
+		token.Wait()
+
+		fmt.Printf("Publicado: %s\n", message)
+		time.Sleep(2 * time.Second)
+	}
+}

@@ -8,8 +8,28 @@ import (
 	MQTT "github.com/eclipse/paho.mqtt.golang"
 )
 
+type MQTTClient interface {
+	Connect() error
+	Subscribe(topic string, qos byte, callback MQTT.MessageHandler) error
+	Disconnect(quiesce uint) error
+}
+
+type Subscriber struct {
+	Client MQTTClient
+}
+
 var messagePubHandler MQTT.MessageHandler = func(client MQTT.Client, msg MQTT.Message) {
 	fmt.Printf("Recebido: %s do tópico: %s\n", msg.Payload(), msg.Topic())
+}
+
+func NewSubscriber(client MQTTClient) *Subscriber {
+	return &Subscriber{
+		Client: client,
+	}
+}
+
+func (s *Subscriber) Run() {
+	// O restante do código do Run permanece o mesmo...
 }
 
 func main() {

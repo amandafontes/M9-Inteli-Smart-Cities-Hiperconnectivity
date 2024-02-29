@@ -21,7 +21,7 @@ func main() {
 	}
 
 	// Leitura do arquivo JSON
-	file, err := os.ReadFile("sensor.json")
+	file, err := os.ReadFile("../sensor.json")
 	if err != nil {
 		fmt.Println("Erro ao ler o arquivo:", err)
 		os.Exit(1)

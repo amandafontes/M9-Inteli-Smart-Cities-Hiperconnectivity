@@ -11,7 +11,7 @@ def on_connect(client, userdata, flags, rc):
     client.subscribe("sensor/data")
 
 # Configuração do cliente
-client = mqtt.Client(mqtt.CallbackAPIVersion.VERSION1, "python_subscriber")
+client = mqtt.Client(client_id="python_subscriber")
 client.on_connect = on_connect
 client.on_message = on_message
 

@@ -32,4 +32,5 @@ python3 subscriber.py
 
 Abaixo, é possível visualizar o vídeo demonstrativo gravado para a atividade.
 
-https://github.com/amandafontes/M9-Inteli-Smart-Cities-Hiperconnectivity/blob/main/simulador_iot/A1-M9-EC.mp4
+https://github.com/amandafontes/M9-Inteli-Smart-Cities-Hiperconnectivity/assets/77015911/12289309-963f-4d3e-a71d-e665789bb4e6
+

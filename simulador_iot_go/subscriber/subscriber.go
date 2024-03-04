@@ -1,59 +1,48 @@
-package main
+package main 
 
 import (
 	"fmt"
 	"os"
-	"os/signal"
-
-	MQTT "github.com/eclipse/paho.mqtt.golang"
+	"time"
+	
+	mqtt "github.com/eclipse/paho.mqtt.golang"
 )
 
-type MQTTClient interface {
-	Connect() error
-	Subscribe(topic string, qos byte, callback MQTT.MessageHandler) error
-	Disconnect(quiesce uint) error
-}
-
-type Subscriber struct {
-	Client MQTTClient
-}
-
-var messagePubHandler MQTT.MessageHandler = func(client MQTT.Client, msg MQTT.Message) {
+var messagePubHandler mqtt.MessageHandler = func(client mqtt.Client, msg mqtt.Message) {
 	fmt.Printf("Recebido: %s do tópico: %s\n", msg.Payload(), msg.Topic())
 }
 
-func NewSubscriber(client MQTTClient) *Subscriber {
-	return &Subscriber{
-		Client: client,
-	}
-}
-
-func (s *Subscriber) Run() {
-	// O restante do código do Run permanece o mesmo...
+var connectLostHandler mqtt.ConnectionLostHandler = func(client mqtt.Client, err error) {
+	fmt.Printf("Conexão perdida: %v\n", err)
 }
 
 func main() {
-	opts := MQTT.NewClientOptions().AddBroker("tcp://localhost:1891")
-	opts.SetClientID("go_subscriber")
-	opts.SetDefaultPublishHandler(messagePubHandler)
+	// Configuração do cliente MQTT
+	opts := mqtt.NewClientOptions().
+		AddBroker("tcp://localhost:1891").
+		SetClientID("").
+		SetDefaultPublishHandler(messagePubHandler).
+		SetConnectionLostHandler(connectLostHandler)
 
-	client := MQTT.NewClient(opts)
+	// Criação do cliente MQTT com as opções configuradas
+	client := mqtt.NewClient(opts)
+
+	// Conectar ao broker
 	if token := client.Connect(); token.Wait() && token.Error() != nil {
-		panic(token.Error())
+		fmt.Println("Erro ao conectar:", token.Error())
+		os.Exit(1)
 	}
 
-	if token := client.Subscribe("sensor/data", 1, nil); token.Wait() && token.Error() != nil {
-		fmt.Println(token.Error())
-		return
+	// Inscrever-se no tópico "sensor/data"
+	if token := client.Subscribe("sensor/data", 0, nil); token.Wait() && token.Error() != nil {
+		fmt.Println("Erro ao se inscrever:", token.Error())
+		os.Exit(1)
 	}
 
-	fmt.Println("Subscriber está rodando. Pressione CTRL+C para sair.")
-
-	c := make(chan os.Signal, 1)
-	signal.Notify(c, os.Interrupt)
-	<-c
-
-	client.Disconnect(250)
-	fmt.Println("Subscriber desconectado.")
+	fmt.Println("Subscriber está rodando, pressione CTRL+C para sair...")
+	
+	// Mantém o subscriber rodando
+	for {
+		time.Sleep(1 * time.Second)
+	}
 }
-

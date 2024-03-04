@@ -30,13 +30,13 @@ mosquitto -c mosquitto.conf
 go run publisher.go
 ```
 
-*3.* Execução do subscriber <code>subscriber</code>
+*3.* Execução do subscriber no diretório <code>subscriber</code>
 
 ```shell
 go run subscriber.go
 ```
 
-*4.* Execução do script de teste <code>publisher</code>
+*4.* Execução do script de teste no diretório <code>publisher</code>
 
 ```shell
 go test
@@ -45,3 +45,6 @@ go test
 <h3>Demonstração</h3>
 
 Abaixo, encontra-se o vídeo demonstrativo gravado para a atividade. Nele, são seguidos os passos de execução descritos.
+
+https://github.com/amandafontes/M9-Inteli-Smart-Cities-Hiperconnectivity/assets/77015911/3c3358f3-3e38-45cf-98b5-caeb3f075785
+

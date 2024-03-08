@@ -10,9 +10,17 @@ import (
 	mqtt "github.com/eclipse/paho.mqtt.golang"
 )
 
+func PublishData(client mqtt.Client, topic string, payload interface{}) {
+	message, _ := json.Marshal(payload)
+	token := client.Publish(topic, 0, false, message)
+	token.Wait()
+
+	fmt.Printf("Publicado: %s\n", message)
+}
+
 func main() {
 	// Configuração do cliente MQTT
-	opts := mqtt.NewClientOptions().AddBroker("tcp://localhost:1891").SetClientID("")
+	opts := mqtt.NewClientOptions().AddBroker("tcp://localhost:1883").SetClientID("")
 	client := mqtt.NewClient(opts)
 
 	// Conectar ao broker

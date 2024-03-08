@@ -9,7 +9,7 @@ import (
 	mqtt "github.com/eclipse/paho.mqtt.golang"
 )
 
-func TestPublishMessageRate(t *testing.T) {
+func Test(t *testing.T) {
 	topic := "sensor/data"
 	broker := "tcp://localhost:1891"
 	var messageCount int
@@ -24,6 +24,7 @@ func TestPublishMessageRate(t *testing.T) {
 	if token := client.Connect(); token.Wait() && token.Error() != nil {
 		t.Fatalf("Erro ao conectar ao broker: %v", token.Error())
 	}
+	fmt.Printf("Conexão bem-sucedida com o broker\n")
 
 	defer client.Disconnect(250)
 

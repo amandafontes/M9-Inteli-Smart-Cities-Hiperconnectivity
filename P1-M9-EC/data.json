@@ -1,0 +1,77 @@
+{
+    "dados": [
+      {
+        "id": "lj01f01",
+        "tipo": "freezer",
+        "temperatura": "-18",
+        "timestamp": "01/03/2024 14:30"
+      },
+      {
+        "id": "lj01f02",
+        "tipo": "freezer",
+        "temperatura": "-20",
+        "timestamp": "01/03/2024 14:31"
+      },
+      {
+        "id": "lj01f03",
+        "tipo": "freezer",
+        "temperatura": "-31",
+        "timestamp": "01/03/2024 14:32"
+      },
+      {
+        "id": "lj01f04",
+        "tipo": "freezer",
+        "temperatura": "-2",
+        "timestamp": "01/03/2024 14:33"
+      },
+      {
+        "id": "lj01f05",
+        "tipo": "freezer",
+        "temperatura": "-16",
+        "timestamp": "01/03/2024 14:34"
+      },
+      {
+        "id": "lj01f06",
+        "tipo": "refrigerador",
+        "temperatura": "-1",
+        "timestamp": "01/03/2024 14:35"
+      },
+      {
+        "id": "lj01f07",
+        "tipo": "refrigerador",
+        "temperatura": "0",
+        "timestamp": "01/03/2024 14:36"
+      },
+      {
+        "id": "lj01f08",
+        "tipo": "refrigerador",
+        "temperatura": "11",
+        "timestamp": "01/03/2024 14:37"
+      },
+      {
+        "id": "lj01f09",
+        "tipo": "refrigerador",
+        "temperatura": "-14",
+        "timestamp": "01/03/2024 14:38"
+      },
+      {
+        "id": "lj01f10",
+        "tipo": "refrigerador",
+        "temperatura": "5",
+        "timestamp": "01/03/2024 14:39"
+      },
+      {
+        "id": "lj01f11",
+        "tipo": "refrigerador",
+        "temperatura": "2",
+        "timestamp": "01/03/2024 14:40"
+      },
+      {
+        "id": "lj01f12",
+        "tipo": "freezer",
+        "temperatura": "9",
+        "timestamp": "01/03/2024 14:41"
+      }
+    ]
+  }
+  

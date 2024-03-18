@@ -6,13 +6,14 @@ import (
 	"math/rand"
 	"os"
 	"time"
+	"crypto/tls"
 
 	mqtt "github.com/eclipse/paho.mqtt.golang"
 )
 
 func PublishData(client mqtt.Client, topic string, payload interface{}) {
 	message, _ := json.Marshal(payload)
-	token := client.Publish(topic, 0, false, message)
+	token := client.Publish(topic, 1, false, message)
 	token.Wait()
 
 	fmt.Printf("Publicado: %s\n", message)
@@ -20,14 +21,20 @@ func PublishData(client mqtt.Client, topic string, payload interface{}) {
 
 func main() {
 
-	brokerURL := "tcp://734ec015f104410abedf1ab91c9ef915.s1.eu.hivemq.cloud:1883"
-	username := ""
-	password := ""
+	brokerURL := os.Getenv("BROKER_URL")
+	username := os.Getenv("BROKER_USERNAME")
+	password := os.Getenv("BROKER_PASSWORD")
 
 	// Configuração do cliente MQTT
 	opts := mqtt.NewClientOptions().AddBroker(brokerURL).SetClientID("unique-client-id")
 	opts.SetUsername(username)
 	opts.SetPassword(password)
+
+	// Configuração do TLS
+	tlsConfig := &tls.Config{
+		InsecureSkipVerify: true,
+	}
+	opts.SetTLSConfig(tlsConfig)
 
 	client := mqtt.NewClient(opts)
 
@@ -57,10 +64,10 @@ func main() {
 	for {
 		index := rand.Intn(len(gasesDetectaveis))
 		message, _ := json.Marshal(gasesDetectaveis[index])
-		token := client.Publish("sensor/data", 0, false, message)
+		token := client.Publish("sensor", 1, false, message)
 		token.Wait()
 
 		fmt.Printf("Publicado: %s\n", message)
-		time.Sleep(2 * time.Second)
+		time.Sleep(time.Second)
 	}
 }
